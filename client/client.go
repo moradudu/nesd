@@ -1,42 +1,36 @@
-package main
+package client
 
 import (
-	"context"
-	"fmt"
-	"github.com/spf13/cobra"
-
-	containertypes "github.com/docker/docker/api/types/container"
-	"github.com/docker/docker/client"
+	"github.com/docker/docker/api/types"
 )
 
-var StopCmd = &cobra.Command{
-	Use:   "stopall",
-	Short: "stop a container",
-	Long:  `stop a container by its id`,
-	Run: func(cmd *cobra.Command, args []string) {
-		ctx := context.Background()
-		cli, err := client.NewClientWithOpts(client.FromEnv, client.WithAPIVersionNegotiation())
-		if err != nil {
-			panic(err)
-		}
-		defer cli.Close()
-
-		containers, err := cli.ContainerList(ctx, containertypes.ListOptions{})
-		if err != nil {
-			panic(err)
-		}
-
-		for _, container := range containers {
-			fmt.Print("Stopping container ", container.ID[:10], "... ")
-			noWaitTimeout := 0 // to not wait for the container to exit gracefully
-			if err := cli.ContainerStop(ctx, container.ID, containertypes.StopOptions{Timeout: &noWaitTimeout}); err != nil {
-				panic(err)
-			}
-			fmt.Println("Success")
-		}
-	},
+type Containers struct {
+	ContainerName string
+	ContainerID   string
+	Status        string
+	Time          int64
+}
+type Images struct {
+	ImageName string
+	ImageID   string
+	Status    string
+	Time      int64
 }
 
-func init() {
-	rootCmd.AddCommand(StopCmd)
+type Client interface {
+	ContainerList() ([]types.Container, error)
+	ImagesList() ([]Images, error)
+}
+
+func NewClient() Client {
+	Enginer := "docker"
+	switch Enginer {
+	case "docker":
+		return NewDockerClient()
+	case "containerd":
+	case "crio":
+	default:
+		return nil
+	}
+	return nil
 }
