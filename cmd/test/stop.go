@@ -11,8 +11,8 @@ import (
 
 var StopCmd = &cobra.Command{
 	Use:   "stopall",
-	Short: "stop a container",
-	Long:  `stop a container by its id`,
+	Short: "stop all container",
+	Long:  `stop all container by its id`,
 	Run: func(cmd *cobra.Command, args []string) {
 		ctx := context.Background()
 		cli, err := client.NewClientWithOpts(client.FromEnv, client.WithAPIVersionNegotiation())
@@ -25,7 +25,7 @@ var StopCmd = &cobra.Command{
 		if err != nil {
 			panic(err)
 		}
-
+		fmt.Print(args)
 		for _, container := range containers {
 			fmt.Print("Stopping container ", container.ID[:10], "... ")
 			noWaitTimeout := 0 // to not wait for the container to exit gracefully

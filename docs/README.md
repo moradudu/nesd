@@ -1,6 +1,6 @@
 ## HOW TO USE THIS sdk
 ## Usage
-attach: Attach to a running container
+#### attach: Attach to a running container
 create: Create a new container
 exec: Run a command in a running container
 version: Display runtime version information
@@ -31,7 +31,13 @@ completion: Output bash shell completion code
 checkpoint: Checkpoint one or more running containers
 events, event: Stream the events of containers
 help, h: Shows a list of commands or help for one command
+ #### info ::
 
+
+### diff
+###
+inspect
+### event
 ## build
 
 ## client example
