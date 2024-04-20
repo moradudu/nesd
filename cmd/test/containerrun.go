@@ -30,6 +30,9 @@ var ContainerRunCmd = &cobra.Command{
 		command := os.Args[3:]
 
 		// 创建 Docker 客户端
+		///shishikan
+
+		fmt.Printf("")
 		ctx := context.Background()
 		cli, err := client.NewClientWithOpts(client.FromEnv, client.WithAPIVersionNegotiation())
 		if err != nil {
