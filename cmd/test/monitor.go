@@ -9,7 +9,6 @@ import (
 	"github.com/spf13/cobra"
 	"log"
 	"os"
-	"path/filepath"
 	"time"
 )
 
@@ -65,22 +64,22 @@ var eventsCmd = &cobra.Command{
 					continue
 				}
 
-				eventID := event.ID
-				if eventID == "" {
-					eventID = "unknown"
-				}
+				//eventID := event.ID
+				//if eventID == "" {
+				//	eventID = "unknown"
+				//}
+				fmt.Printf(string(eventJSON) + "\n")
+				//logFilePath := filepath.Join(logDir, fmt.Sprintf("%s.log", eventID))
+				//logFile, err := os.OpenFile(logFilePath, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+				//if err != nil {
+				//	log.Printf("Error opening log file: %v", err)
+				//	continue
+				//}
+				//defer logFile.Close()
 
-				logFilePath := filepath.Join(logDir, fmt.Sprintf("%s.log", eventID))
-				logFile, err := os.OpenFile(logFilePath, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
-				if err != nil {
-					log.Printf("Error opening log file: %v", err)
-					continue
-				}
-				defer logFile.Close()
-
-				if _, err := logFile.WriteString(string(eventJSON) + "\n"); err != nil {
-					log.Printf("Error writing to log file: %v", err)
-				}
+				//if _, err := logFile.WriteString(string(eventJSON) + "\n"); err != nil {
+				//	log.Printf("Error writing to log file: %v", err)
+				//}
 			case err := <-errChan:
 				// 从错误通道读取到错误
 				log.Fatalf("Error reading Docker events: %v", err)
