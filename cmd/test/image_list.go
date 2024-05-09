@@ -14,7 +14,7 @@ var ImageListCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 
 		fmt.Printf("homohomo")
-		imageClinet := client.NewClient()
+		imageClinet := client.NewClient(engine)
 		list, error := imageClinet.ImagesList()
 		if error != nil {
 			fmt.Println(error)

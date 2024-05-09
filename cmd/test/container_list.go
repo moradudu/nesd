@@ -21,10 +21,11 @@ var ContainerListCmd = &cobra.Command{
 
 	Run: func(cmd *cobra.Command, args []string) {
 		// ARGS
-		containerClinet := client.NewClient()
+		containerClinet := client.NewClient(engine)
 		list, error := containerClinet.ContainerList()
 		if error != nil {
 			fmt.Println(error)
+			return
 		}
 		//buf, _ := json.Marshal(list)
 		//fmt.Print(string(buf))

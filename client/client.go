@@ -1,11 +1,7 @@
 package client
 
-import (
-	"github.com/docker/docker/api/types"
-)
-
-type Containers struct {
-	ContainerName string
+type Container struct {
+	ContainerName []string
 	ContainerID   string
 	Status        string
 	Time          int64
@@ -17,17 +13,26 @@ type Images struct {
 	Time      int64
 }
 
-type Client interface {
-	ContainerList() ([]types.Container, error)
-	ImagesList() ([]Images, error)
+type event struct {
 }
 
-func NewClient() Client {
-	Enginer := "docker"
-	switch Enginer {
+type Client interface {
+	ContainerList() ([]*Container, error)
+	ImagesList() ([]Images, error)
+	Events() (chan event, error)
+	Save() error
+	InspectContainer(cid string)
+	InspectImage(iid string)
+	stop(cid string)
+	stopAll(cid string)
+}
+
+func NewClient(engine string) Client {
+	switch engine {
 	case "docker":
 		return NewDockerClient()
 	case "containerd":
+		return NewContrainerd()
 	case "crio":
 	default:
 		return nil

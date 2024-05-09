@@ -9,7 +9,6 @@ require (
 	github.com/docker/cli v26.0.0+incompatible
 	github.com/docker/docker v26.0.0+incompatible
 	github.com/docker/go-units v0.5.0
-	github.com/fsnotify/fsnotify v1.7.0
 	github.com/spf13/cobra v1.8.0
 	golang.org/x/text v0.14.0
 )
